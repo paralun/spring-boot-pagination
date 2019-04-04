@@ -15,6 +15,11 @@ public class PersonController {
     @Autowired
     private PersonRepository personRepository;
 
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
     @GetMapping("/persons")
     public String list(Model model, Pageable pageable) {
         Page<Person> personPage = personRepository.findAll(pageable);
@@ -22,5 +27,14 @@ public class PersonController {
         model.addAttribute("persons", personPage.getContent());
         model.addAttribute("url", "/persons");
         return "persons";
+    }
+
+    @GetMapping("/persons2")
+    public String list2(Model model, Pageable pageable) {
+        Page<Person> personPage = personRepository.findAll(pageable);
+        PageWrapper<Person> page = new PageWrapper<>(personPage, "/persons2");
+        model.addAttribute("persons", personPage.getContent());
+        model.addAttribute("page", page);
+        return "persons2";
     }
 }
