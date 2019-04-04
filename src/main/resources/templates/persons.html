@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}"/>
+    <title>Person List</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:if="${not #lists.isEmpty(persons)}">
+        <h2>Person List</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="person : ${persons}">
+                    <td th:text="${person.firstName}"></td>
+                    <td th:text="${person.lastName}"></td>
+                    <td th:text="${person.age}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pagination Bar -->
+    <div th:fragment="paginationbar">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li th:class="${page.first} ? 'disabled':''" style="display:inline">
+                    <span th:if="${page.first}">Previous</span>
+                    <a th:if="${not page.first}" th:href="@{${url}(page=0)}">Previous</a>
+                </li>
+                <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="(${i}==${page.number})? 'active':''" style="display:inline">
+                    <span th:if="${i}==${page.number}" th:text="${i+1}">1</span>
+                    <a th:if="${i}!=${page.number}" th:href="@{${url}(page=${i})}">
+                        <span th:text="${i+1}">1</span>
+                    </a>
+                </li>
+                <li th:class="${page.last} ? 'disabled':''" style="display:inline">
+                    <span th:if="${page.last}">Next</span>
+                    <a th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/jquery/3.3.1-2/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

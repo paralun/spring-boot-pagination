@@ -20,6 +20,7 @@ public class PersonController {
         Page<Person> personPage = personRepository.findAll(pageable);
         model.addAttribute("page", personPage);
         model.addAttribute("persons", personPage.getContent());
+        model.addAttribute("url", "/persons");
         return "persons";
     }
 }
