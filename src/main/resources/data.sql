@@ -1,4 +1,4 @@
-insert into person
+insert into t_person
 (first_name, last_name, age)
 values
   ('Aiko', 'Thompson', 23),
