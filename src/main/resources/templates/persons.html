@@ -12,18 +12,18 @@
         <h2>Person List</h2>
         <table class="table table-striped">
             <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Age</th>
-                </tr>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:each="person : ${persons}">
-                    <td th:text="${person.firstName}"></td>
-                    <td th:text="${person.lastName}"></td>
-                    <td th:text="${person.age}"></td>
-                </tr>
+            <tr th:each="person : ${persons}">
+                <td th:text="${person.firstName}"></td>
+                <td th:text="${person.lastName}"></td>
+                <td th:text="${person.age}"></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -32,18 +32,20 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li th:class="${page.first} ? 'disabled':''" style="display:inline">
-                    <span th:if="${page.first}">Previous</span>
-                    <a th:if="${not page.first}" th:href="@{${url}(page=0)}">Previous</a>
+                    <span class="page" th:if="${page.first}">First</span>
+                    <a class="page-link" th:if="${not page.first}" th:href="@{${url}(page=0)}">First</a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}" th:class="(${i}==${page.number})? 'active':''" style="display:inline">
-                    <span th:if="${i}==${page.number}" th:text="${i+1}">1</span>
-                    <a th:if="${i}!=${page.number}" th:href="@{${url}(page=${i})}">
+                <li th:each="i : ${#numbers.sequence(0, page.totalPages - 1)}"
+                    th:class="(${i}==${page.number})? 'active':''" style="display:inline">
+                    <span class="page" th:if="${i}==${page.number}" th:text="${i+1}">1</span>
+                    <a class="page-link" th:if="${i}!=${page.number}" th:href="@{${url}(page=${i})}">
                         <span th:text="${i+1}">1</span>
                     </a>
                 </li>
                 <li th:class="${page.last} ? 'disabled':''" style="display:inline">
-                    <span th:if="${page.last}">Next</span>
-                    <a th:if="${not page.last}" th:href="@{${url}(page=(${page.totalPages}-1))}">Next</a>
+                    <span class="page" th:if="${page.last}">Last</span>
+                    <a class="page-link" th:if="${not page.last}"
+                       th:href="@{${url}(page=(${page.totalPages}-1))}">Last</a>
                 </li>
             </ul>
         </nav>
